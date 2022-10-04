@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnBici;
 
     //Variables de logica
-    ArrayList<Coche> listaCoches = new ArrayList<>();
-    ArrayList<Moto> listaMotos = new ArrayList<>();
-    ArrayList<Bici> listaBicis = new ArrayList<>();
+    private ArrayList<Coche> listaCoches;
+    private ArrayList<Moto> listaMotos;
+    private ArrayList<Bici> listaBicis;
 
     //Variables de retorno
     private ActivityResultLauncher<Intent> cochesLauncher;
@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         btnCoche = findViewById(R.id.btnCocheMain);
         btnMoto = findViewById(R.id.btnMotoMain);
         btnBici = findViewById(R.id.btnBiciMain);
+        listaCoches = new ArrayList<>();
+        listaMotos = new ArrayList<>();
+        listaBicis = new ArrayList<>();
     }
 
     private void InicializaActivitiesResultLaunchers(){
@@ -91,12 +94,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK){
-                            if (result.getData() != null){
+                            if (result.getData() != null && result.getData().getExtras() != null){
                                 if (result.getData().getExtras().getSerializable("CC")!= null){
                                     Coche coche = (Coche) result.getData().getExtras().getSerializable("CC");
                                     listaCoches.add(coche);
                                     ActualizarListas();
                                 }
+                                else {
+                                    Toast.makeText(MainActivity.this, "PAQUETE INCORRECTO", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "PAQUETE VACIO", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {
@@ -111,12 +120,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK){
-                            if (result.getData() != null){
+                            if (result.getData() != null && result.getData().getExtras() != null){
                                 if (result.getData().getExtras().getSerializable("CM")!= null){
                                     Moto moto = (Moto) result.getData().getExtras().getSerializable("CM");
                                     listaMotos.add(moto);
                                     ActualizarListas();
                                 }
+                                else {
+                                    Toast.makeText(MainActivity.this, "PAQUETE INCORRECTO", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "PAQUETE VACIO", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {
@@ -131,12 +146,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK){
-                            if (result.getData() != null){
+                            if (result.getData() != null && result.getData().getExtras() != null){
                                 if (result.getData().getExtras().getSerializable("CB")!= null){
                                     Bici bici = (Bici) result.getData().getExtras().getSerializable("CB");
                                     listaBicis.add(bici);
                                     ActualizarListas();
                                 }
+                                else {
+                                    Toast.makeText(MainActivity.this, "PAQUETE INCORRECTO", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "PAQUETE VACIO", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {
